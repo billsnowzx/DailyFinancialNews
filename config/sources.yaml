@@ -1,0 +1,142 @@
+market_data:
+  provider: yahoo_chart
+  instruments:
+    - symbol: ^GSPC
+      name: S&P 500
+      asset_class: equities
+      region: US
+    - symbol: ^NDX
+      name: Nasdaq 100
+      asset_class: equities
+      region: US
+    - symbol: ^STOXX
+      name: STOXX Europe 600
+      asset_class: equities
+      region: Europe
+    - symbol: ^N225
+      name: Nikkei 225
+      asset_class: equities
+      region: Japan
+    - symbol: ^HSI
+      name: Hang Seng Index
+      asset_class: equities
+      region: Hong Kong
+    - symbol: 000300.SS
+      name: CSI 300
+      asset_class: equities
+      region: China
+    - symbol: DX-Y.NYB
+      name: DXY
+      asset_class: fx
+      region: Global
+    - symbol: EURUSD=X
+      name: EURUSD
+      asset_class: fx
+      region: Global
+    - symbol: JPY=X
+      name: USDJPY
+      asset_class: fx
+      region: Japan
+    - symbol: CNH=X
+      name: USDCNH
+      asset_class: fx
+      region: China
+    - symbol: AUDUSD=X
+      name: AUDUSD
+      asset_class: fx
+      region: Australia
+    - symbol: CL=F
+      name: WTI
+      asset_class: commodities
+      region: Global
+    - symbol: BZ=F
+      name: Brent
+      asset_class: commodities
+      region: Global
+    - symbol: GC=F
+      name: Gold
+      asset_class: commodities
+      region: Global
+    - symbol: HG=F
+      name: Copper
+      asset_class: commodities
+      region: Global
+    - symbol: BTC-USD
+      name: BTC
+      asset_class: crypto
+      region: Global
+
+content_sources:
+  - name: Reuters Markets
+    type: rss
+    url: https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best
+    region: Global
+    asset_class: macro
+    language: en
+    weight: 1.0
+    enabled: true
+  - name: Fed Press Releases
+    type: rss
+    url: https://www.federalreserve.gov/feeds/press_all.xml
+    region: US
+    asset_class: rates
+    language: en
+    weight: 1.0
+    enabled: true
+  - name: ECB Press Releases
+    type: rss
+    url: https://www.ecb.europa.eu/rss/press.html
+    region: Europe
+    asset_class: rates
+    language: en
+    weight: 1.0
+    enabled: true
+  - name: BIS
+    type: rss
+    url: https://www.bis.org/list/press_releases/index.rss
+    region: Global
+    asset_class: macro
+    language: en
+    weight: 0.8
+    enabled: true
+  - name: Matt Levine
+    type: rss
+    url: https://www.bloomberg.com/account/newsletters/money-stuff
+    region: US
+    asset_class: equities
+    language: en
+    weight: 0.7
+    enabled: false
+  - name: Reddit Investing
+    type: reddit
+    url: https://www.reddit.com/r/investing/top.json?t=day&limit=10
+    region: US
+    asset_class: equities
+    language: en
+    weight: 0.5
+    enabled: true
+  - name: Reddit Stocks
+    type: reddit
+    url: https://www.reddit.com/r/stocks/top.json?t=day&limit=10
+    region: US
+    asset_class: equities
+    language: en
+    weight: 0.5
+    enabled: true
+  - name: X Macro List
+    type: x_list
+    url: null
+    region: Global
+    asset_class: macro
+    language: en
+    weight: 0.8
+    enabled: false
+  - name: Xiaohongshu Finance
+    type: xiaohongshu
+    url: null
+    region: China
+    asset_class: equities
+    language: zh
+    weight: 0.4
+    enabled: false
+

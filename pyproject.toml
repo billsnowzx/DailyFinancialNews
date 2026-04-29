@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dailyfinnews"
+version = "0.1.0"
+description = "Daily 8am SGT cross-asset market report pipeline."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "feedparser>=6.0.11",
+  "PyYAML>=6.0.1",
+  "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+]
+
+[project.scripts]
+dailyfinnews = "dailyfinnews.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
