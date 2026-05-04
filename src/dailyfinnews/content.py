@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from typing import Any
+import warnings
 
 import requests
 
@@ -13,14 +14,17 @@ def fetch_content_items(sources: list[dict[str, Any]], timeout: int = 15) -> lis
     items: list[ContentItem] = []
     for source in sources:
         source_type = source.get("type")
-        if source_type == "rss":
-            items.extend(fetch_rss_source(source))
-        elif source_type == "reddit":
-            items.extend(fetch_reddit_source(source, timeout=timeout))
+        try:
+            if source_type in {"rss", "newspaper_rss"}:
+                items.extend(fetch_rss_source(source, source_type=source_type))
+            elif source_type == "reddit":
+                items.extend(fetch_reddit_source(source, timeout=timeout))
+        except Exception as exc:
+            warnings.warn(f"Skipping source {source.get('name', '<unknown>')}: {exc}")
     return dedupe_by_title(items)
 
 
-def fetch_rss_source(source: dict[str, Any]) -> list[ContentItem]:
+def fetch_rss_source(source: dict[str, Any], source_type: str = "rss") -> list[ContentItem]:
     import feedparser
 
     feed = feedparser.parse(source["url"])
@@ -34,7 +38,7 @@ def fetch_rss_source(source: dict[str, Any]) -> list[ContentItem]:
             body=(entry.get("summary") or "").strip(),
             url=(entry.get("link") or source["url"]).strip(),
             language=source.get("language", "en"),
-            source_type="rss",
+            source_type=source_type,
             weight=float(source.get("weight", 1.0)),
         )
         for entry in feed.entries

@@ -24,6 +24,8 @@ def compose_report(market_rows: list[Row], content_rows: list[Row], generated_at
     lines.extend(asset_class_sections(market_rows, content_rows))
     lines.extend(["", "## Narrative Drivers", ""])
     lines.extend(driver_sections(content_rows))
+    lines.extend(["", "## Major Financial Press", ""])
+    lines.extend(newspaper_digest(content_rows))
     lines.extend(["", "## Social Pulse", ""])
     lines.extend(social_pulse(content_rows))
     lines.extend(["", "## Day Ahead", ""])
@@ -97,6 +99,31 @@ def driver_sections(content_rows: list[Row]) -> list[str]:
     ]
 
 
+def newspaper_digest(content_rows: list[Row]) -> list[str]:
+    rows = [row for row in content_rows if row["source_type"] == "newspaper_rss"]
+    if not rows:
+        return [
+            "- No major financial newspaper items were ingested. Check paywall/RSS access before treating this as a quiet-news signal."
+        ]
+
+    lines: list[str] = []
+    for source, source_rows in sorted(group_rows(rows, "source").items()):
+        lines.append(f"### {source}")
+        for row in sorted(source_rows, key=lambda value: value["timestamp"], reverse=True)[:3]:
+            summary = summarize_text(row["body"]) if row["body"] else "No excerpt available from the feed."
+            lines.append(f"- [{row['title']}]({row['url']}) — {summary}")
+        lines.append("")
+    return lines
+
+
+def summarize_text(text: str, max_words: int = 32) -> str:
+    clean = " ".join(text.replace("\n", " ").split())
+    words = clean.split()
+    if len(words) <= max_words:
+        return clean
+    return " ".join(words[:max_words]).rstrip(".,;:") + "..."
+
+
 def social_pulse(content_rows: list[Row]) -> list[str]:
     social = [row for row in content_rows if row["source_type"] in {"reddit", "x_list", "xiaohongshu"}]
     if not social:
@@ -122,4 +149,3 @@ def group_rows(rows: list[Row], key: str) -> dict[str, list[Row]]:
     for row in rows:
         grouped[row[key]].append(row)
     return grouped
-

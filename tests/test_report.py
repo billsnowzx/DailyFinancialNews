@@ -33,6 +33,18 @@ def test_compose_report_contains_required_sections() -> None:
                 language="en",
                 source_type="reddit",
                 weight=0.5,
+            ),
+            ContentItem(
+                source="Financial Times Markets",
+                timestamp=datetime.now(timezone.utc),
+                region="Global",
+                asset_class="equities",
+                title="Stocks steady as investors parse central bank signals",
+                body="Global equities were little changed as investors weighed central bank guidance and earnings updates.",
+                url="https://www.ft.com/example",
+                language="en",
+                source_type="newspaper_rss",
+                weight=1.0,
             )
         ]
     )
@@ -46,5 +58,7 @@ def test_compose_report_contains_required_sections() -> None:
     assert "## TL;DR" in report
     assert "## Cross-Asset Snapshot" in report
     assert "## Social Pulse" in report
+    assert "## Major Financial Press" in report
+    assert "Financial Times Markets" in report
     assert "BTC" in report
     store.close()

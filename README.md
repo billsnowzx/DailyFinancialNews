@@ -32,10 +32,11 @@ See [docs/report_spec.md](docs/report_spec.md) for the locked v1 report format.
 - Normalized content table: source, timestamp, region, asset class, title, body, URL, language.
 - Deduplication by normalized title similarity.
 - Report sections: TL;DR, cross-asset table, by asset class, narrative drivers, social pulse, day ahead.
+- Major financial press digest for RSS-accessible headlines/excerpts from The Economist, Wall Street Journal, Financial Times, and similar sources.
 
 ## Next Hardening Steps
 
 1. Add paid market-data and pro-media adapters behind the same source config schema.
 2. Add LLM driver extraction, claim validation, social distillation, and QA passes.
-3. Add scheduler deployment, email distribution, and one-click section feedback.
-
+3. Add licensed full-text newspaper ingestion where subscriptions permit it.
+4. Add scheduler deployment, email distribution, and one-click section feedback.

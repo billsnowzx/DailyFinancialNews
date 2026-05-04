@@ -99,6 +99,54 @@ content_sources:
     language: en
     weight: 0.8
     enabled: true
+  - name: The Economist Finance and Economics
+    type: newspaper_rss
+    url: https://www.economist.com/finance-and-economics/rss.xml
+    region: Global
+    asset_class: macro
+    language: en
+    weight: 1.0
+    enabled: true
+  - name: The Economist Business
+    type: newspaper_rss
+    url: https://www.economist.com/business/rss.xml
+    region: Global
+    asset_class: macro
+    language: en
+    weight: 0.9
+    enabled: true
+  - name: Wall Street Journal Markets
+    type: newspaper_rss
+    url: https://feeds.a.dj.com/rss/RSSMarketsMain.xml
+    region: US
+    asset_class: equities
+    language: en
+    weight: 1.0
+    enabled: true
+  - name: Wall Street Journal Economy
+    type: newspaper_rss
+    url: https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml
+    region: US
+    asset_class: macro
+    language: en
+    weight: 0.9
+    enabled: true
+  - name: Financial Times Markets
+    type: newspaper_rss
+    url: https://www.ft.com/markets?format=rss
+    region: Global
+    asset_class: equities
+    language: en
+    weight: 1.0
+    enabled: true
+  - name: Financial Times Global Economy
+    type: newspaper_rss
+    url: https://www.ft.com/global-economy?format=rss
+    region: Global
+    asset_class: macro
+    language: en
+    weight: 1.0
+    enabled: true
   - name: Matt Levine
     type: rss
     url: https://www.bloomberg.com/account/newsletters/money-stuff
@@ -139,4 +187,3 @@ content_sources:
     language: zh
     weight: 0.4
     enabled: false
-

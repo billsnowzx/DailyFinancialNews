@@ -31,6 +31,10 @@ Equities, rates, FX, and commodities each get three to five sentences tying move
 
 Two to four themes. Each theme needs supporting evidence and source links. Single-sourced claims must be labeled.
 
+### Major Financial Press
+
+Summarize the latest RSS-accessible stories from major financial and economic publications such as The Economist, Wall Street Journal, and Financial Times. Paywalled sources should be treated as headline/excerpt inputs unless licensed full text is available. Keep this section separate from social sentiment and from market-data-derived claims.
+
 ### Social Pulse
 
 Separate from headline news. Summarize what Substack, Reddit, and eventually X / 小红书 are talking about. Label this as sentiment, not verified fact.
@@ -45,4 +49,3 @@ Economic data, central-bank speakers, earnings, and auctions in the next 24 hour
 - Claims need source attribution.
 - Social claims must not be presented as factual confirmation.
 - If there is insufficient evidence for a section, say so explicitly rather than inventing detail.
-

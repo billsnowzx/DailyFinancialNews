@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from typing import Any
+import warnings
 
 import requests
 
@@ -14,16 +15,19 @@ YAHOO_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 def fetch_yahoo_points(instruments: list[Instrument], timeout: int = 15) -> list[MarketPoint]:
     points: list[MarketPoint] = []
     for instrument in instruments:
-        response = requests.get(
-            YAHOO_CHART_URL.format(symbol=instrument.symbol),
-            params={"range": "5d", "interval": "1d"},
-            headers={"User-Agent": "DailyFinNews/0.1"},
-            timeout=timeout,
-        )
-        response.raise_for_status()
-        point = parse_yahoo_chart(instrument, response.json())
-        if point is not None:
-            points.append(point)
+        try:
+            response = requests.get(
+                YAHOO_CHART_URL.format(symbol=instrument.symbol),
+                params={"range": "5d", "interval": "1d"},
+                headers={"User-Agent": "DailyFinNews/0.1"},
+                timeout=timeout,
+            )
+            response.raise_for_status()
+            point = parse_yahoo_chart(instrument, response.json())
+            if point is not None:
+                points.append(point)
+        except Exception as exc:
+            warnings.warn(f"Skipping instrument {instrument.symbol}: {exc}")
     return points
 
 
@@ -52,4 +56,3 @@ def parse_yahoo_chart(instrument: Instrument, payload: dict[str, Any]) -> Market
         level=float(latest),
         change_pct=change_pct,
     )
-
